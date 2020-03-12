@@ -1,3 +1,6 @@
--name erlang_api@127.0.0.1
--setcookie erlang_api
--heart
+-sname hello_world
+
+-setcookie hello_world_cookie
+
++K true
++A30
