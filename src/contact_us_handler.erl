@@ -6,10 +6,14 @@
 
 init(Req0 = #{method := <<"POST">>}, State) ->
     {ok, Data, Req1} = cowboy_req:read_body(Req0),
-    {BodyMap} = jiffy:decode(Data),
+    {BodyPropList} = jiffy:decode(Data),
+    Message = proplists:get_value(<<"message">>,
+				  BodyPropList, <<"">>),
+    Email = proplists:get_value(<<"message">>, BodyPropList,
+				<<"">>),
     Req2 = cowboy_req:reply(200,
-			    #{<<"content-type">> => <<"text/plain">>},
-			    proplists:get_value(<<"message">>, BodyMap), Req0),
+			    #{<<"content-type">> => <<"text/plain">>}, Message,
+			    Req0),
     {ok, Req2, State};
 init(Req0, State) ->
     Req = cowboy_req:reply(405,
