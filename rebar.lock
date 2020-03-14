@@ -1,6 +1,9 @@
 {"1.1.0",
 [{<<"cowboy">>,{pkg,<<"cowboy">>,<<"2.7.0">>},0},
  {<<"cowlib">>,{pkg,<<"cowlib">>,<<"2.8.0">>},1},
+ {<<"epgsql">>,{pkg,<<"epgsql">>,<<"4.3.0">>},0},
+ {<<"episcina">>,{pkg,<<"episcina">>,<<"1.1.0">>},0},
+ {<<"gproc">>,{pkg,<<"gproc">>,<<"0.3.1">>},1},
  {<<"jiffy">>,{pkg,<<"jiffy">>,<<"1.0.4">>},0},
  {<<"meck">>,{pkg,<<"meck">>,<<"0.8.13">>},0},
  {<<"ranch">>,{pkg,<<"ranch">>,<<"1.7.1">>},1}]}.
@@ -8,6 +11,9 @@
 {pkg_hash,[
  {<<"cowboy">>, <<"91ED100138A764355F43316B1D23D7FF6BDB0DE4EA618CB5D8677C93A7A2F115">>},
  {<<"cowlib">>, <<"FD0FF1787DB84AC415B8211573E9A30A3EBE71B5CBFF7F720089972B2319C8A4">>},
+ {<<"epgsql">>, <<"26D9CF04D74773D1DC4DA24AD39E926B34E107232591FE1866EFDFBC0A098396">>},
+ {<<"episcina">>, <<"20E99B3DB3F349D9620FF1A245F6B4D52A5E2468571938BCBE7FB4FCF4870507">>},
+ {<<"gproc">>, <<"EC14F40CB941BDE3F940DE59C11E59BEB2977E90DBAE72FAB3DDF77743FD4EA9">>},
  {<<"jiffy">>, <<"72ADEFF75C52A2FF07DE738F0813768ABE7CE158026CC1115A170340259C0CAA">>},
  {<<"meck">>, <<"FFEDB39F99B0B99703B8601C6F17C7F76313EE12DE6B646E671E3188401F7866">>},
  {<<"ranch">>, <<"6B1FAB51B49196860B733A49C07604465A47BDB78AA10C1C16A3D199F7F8C881">>}]}
