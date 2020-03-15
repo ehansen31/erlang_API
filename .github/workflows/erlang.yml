@@ -24,6 +24,8 @@ jobs:
       # run: apt-get install esl-erlang
     - name: Elixir install
       run: sudo apt-get install elixir
+    - name: Elixir hex install
+      run: mix local.hex
     - name: Compile
       run: rebar3 compile
     - name: Stand up environment
