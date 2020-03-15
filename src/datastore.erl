@@ -3,11 +3,8 @@
 -export([insert_contact_us/3, migrate/0]).
 
 migrate() ->
-    % Conn = ?config(pgdb, Opts),
-    % Conn = pgdb,
     {ok, Conn} = epgsql:connect("localhost", "user", "pass",
 				#{database => "erlang_api", timeout => 4000}),
-    % ...
     MigrationCall =
 	pure_migrations:migrate("migrations/",
 				fun (F) ->
@@ -40,10 +37,6 @@ migrate() ->
 					  Default -> Default
 					end
 				end),
-    % ...
-    %% more preparation steps if needed
-    % ...
-    %% migration call
     ok = MigrationCall(),
     ok = epgsql:close(Conn).
 
@@ -51,8 +44,7 @@ prepare_test_db(Pool) -> ok.
 
 insert_contact_us(Pool, Message, Email) ->
     Now = calendar:local_time(),
-    % logger:warning("", Now).
     pgapp:equery(Pool,
-		 "Insert INTO contacts(email, message,created_a"
+		 "Insert INTO contact_us(email, message,created_a"
 		 "t, updated_at) VALUES($1, $2, $3, $3)",
 		 [Email, Message, Now]).
