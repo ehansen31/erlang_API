@@ -17,4 +17,4 @@ Shell
 
 Database Migrations
 -----
-    $ migrate_db:migrate().
+    migrate_db:migrate().
