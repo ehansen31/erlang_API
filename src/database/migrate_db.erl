@@ -1,12 +1,12 @@
--module(datastore).
+-module(migrate_db).
 
--export([insert_contact_us/3, migrate/0]).
+-export([migrate/0]).
 
 migrate() ->
     {ok, Conn} = epgsql:connect("localhost", "user", "pass",
 				#{database => "erlang_api", timeout => 4000}),
     MigrationCall =
-	pure_migrations:migrate("migrations/",
+	pure_migrations:migrate("src/datastore/migrations",
 				fun (F) ->
 					epgsql:with_transaction(Conn,
 								fun (_) -> F()
@@ -40,11 +40,4 @@ migrate() ->
     ok = MigrationCall(),
     ok = epgsql:close(Conn).
 
-prepare_test_db(Pool) -> ok.
-
-insert_contact_us(Pool, Message, Email) ->
-    Now = calendar:local_time(),
-    pgapp:equery(Pool,
-		 "Insert INTO contact_us(email, message,created_a"
-		 "t, updated_at) VALUES($1, $2, $3, $3)",
-		 [Email, Message, Now]).
+prepare_test_db() -> ok.
