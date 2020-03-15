@@ -6,7 +6,7 @@ migrate() ->
     {ok, Conn} = epgsql:connect("localhost", "user", "pass",
 				#{database => "erlang_api", timeout => 4000}),
     MigrationCall =
-	pure_migrations:migrate("src/datastore/migrations",
+	pure_migrations:migrate("src/database/migrations",
 				fun (F) ->
 					epgsql:with_transaction(Conn,
 								fun (_) -> F()
