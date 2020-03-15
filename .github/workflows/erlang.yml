@@ -17,8 +17,13 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    # - name: Compile
-    #   run: rebar3 compile
+    - name: elixir
+      run: wget https://packages.erlang-solutions.com/erlang-solutions_2.0_all.deb && sudo dpkg -i erlang-solutions_2.0_all.deb
+      run: apt-get update
+      # run: apt-get install esl-erlang
+      run: apt-get install elixir
+    - name: Compile
+      run: rebar3 compile
     - name: Stand up environment
       run: docker-compose up -d
     # - name: Migrate DB
