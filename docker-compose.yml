@@ -2,10 +2,11 @@ version: "3"
 services:
   db:
     image: "postgres:9.5.10"
-    container_name: "elixir_bootcamp_psql"
+    container_name: "erlang_api_db"
     environment:
       - POSTGRES_USER=user
       - POSTGRES_PASSWORD=pass
+      - POSTGRES_DB=erlang_api
     ports:
       - "5432:5432"
     volumes:
