@@ -23,7 +23,7 @@ jobs:
       run: sudo apt-get update
       # run: apt-get install esl-erlang
     - name: Elixir install
-      run: sudo apt-get install elixir
+      run: sudo apt-get install elixir && sudo apt-get install expect
     - name: Elixir hex install
       run: mix local.hex --force
     - name: Compile
