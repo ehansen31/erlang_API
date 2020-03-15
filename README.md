@@ -5,7 +5,6 @@ An OTP application
 
 Build
 -----
-
     $ rebar3 compile
 
 Run
@@ -14,6 +13,8 @@ Run
 
 Shell
 -----
-rebar3 shell
-application:start(myapp).
+    $ rebar3 shell
 
+Database Migrations
+-----
+    $ migrate_db:migrate().
