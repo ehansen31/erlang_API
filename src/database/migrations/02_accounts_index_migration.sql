@@ -1,0 +1,1 @@
+CREATE UNIQUE INDEX uuid_unique_index on accounts(uuid);

@@ -5,6 +5,3 @@ CREATE TABLE accounts(
     created_at TIMESTAMP NOT NULL,
     updated_at TIMESTAMP NOT NULL
 );
-
-CREATE UNIQUE INDEX uuid_unique_index on accounts(uuid);
-CREATE UNIQUE INDEX email_unique_index on accounts(email);
