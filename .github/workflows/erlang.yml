@@ -17,10 +17,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: elixir
+    - name: Elixir package
       run: wget https://packages.erlang-solutions.com/erlang-solutions_2.0_all.deb && sudo dpkg -i erlang-solutions_2.0_all.deb
+    - name: Elixir package update
       run: apt-get update
       # run: apt-get install esl-erlang
+    - name: Elixir install
       run: apt-get install elixir
     - name: Compile
       run: rebar3 compile
