@@ -9,7 +9,9 @@
     cowboy,
     jiffy,
     pgapp, 
-    pure_migrations
+    pure_migrations,
+    jwt,
+    uuid
    ]},
   {env,[]},
   {modules, []},
