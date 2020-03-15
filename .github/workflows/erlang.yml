@@ -17,8 +17,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Compile
-      run: rebar3 compile
+    # - name: Compile
+    #   run: rebar3 compile
     - name: Stand up environment
       run: docker-compose up -d
     # - name: Migrate DB
