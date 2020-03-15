@@ -30,14 +30,8 @@ jobs:
       run: rebar3 compile
     - name: Stand up environment
       run: docker-compose up -d
-    - name: Start shell
-      run: rebar3 shell
-    - name: Sleep for 30 seconds
-      uses: jakejarvis/wait-action@master
-      with:
-        time: '30s'
     - name: Migrate DB
-      run: migrate_db:migrate().
+      run: chmod +x migrate.sh && ./migrate.sh
     - name: Run tests
       run: rebar3 eunit
 
