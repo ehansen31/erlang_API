@@ -25,7 +25,7 @@ jobs:
     - name: Elixir install
       run: sudo apt-get install elixir
     - name: Elixir hex install
-      run: Y | mix local.hex
+      run: mix local.hex --force
     - name: Compile
       run: rebar3 compile
     - name: Stand up environment
