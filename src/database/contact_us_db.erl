@@ -9,3 +9,11 @@ insert_contact_us(Pool, Message, Email) ->
 		 "_at, updated_at) VALUES($1, $2, $3, "
 		 "$3)",
 		 [Email, Message, Now]).
+
+-ifdef(TEST).
+-include_lib("eunit/include/eunit.hrl").
+
+	insert_contact_us_test() ->
+		insert_contact_us(pgdb, "message here", "e.hansen31@live.com").
+
+-endif.

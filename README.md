@@ -18,3 +18,7 @@ Shell
 Database Migrations
 -----
     migrate_db:migrate().
+
+Tests
+-----
+    $ rebar3 eunit
