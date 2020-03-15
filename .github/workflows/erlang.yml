@@ -17,7 +17,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    -name: Get Dependencies
+    - name: Get Dependencies
       run: rebar3 deps-get
     - name: Compile
       run: rebar3 compile
