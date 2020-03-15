@@ -12,8 +12,8 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    container:
-      image: erlang:22.0.7
+    # container:
+    #   image: erlang:22.0.7
 
     steps:
     - uses: actions/checkout@v2
@@ -25,3 +25,13 @@ jobs:
       # run: 
     - name: Run tests
       run: rebar3 eunit
+
+# - name: Cache
+#   uses: actions/cache@v1.1.2
+#   with:
+#     # A directory to store and save the cache
+#     path: 
+#     # An explicit key for restoring and saving the cache
+#     key: 
+#     # An ordered list of keys to use for restoring the cache if no cache hit occurred for key
+#     restore-keys: # optional
