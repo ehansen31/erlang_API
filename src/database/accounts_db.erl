@@ -23,5 +23,8 @@ get_account(Uuid) ->
 
 insert_account_test() ->
     {ok, _} = insert_account("e.hansen31@live.com").
+get_account()->
+	get_account()
+	.
 
 -endif.
