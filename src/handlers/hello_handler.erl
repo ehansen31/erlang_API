@@ -5,6 +5,7 @@
 -export([init/2]).
 
 init(Req0, State) ->
+    logger:warning("~p", [Req0]),
     Req = cowboy_req:reply(200,
 			   #{<<"content-type">> => <<"text/plain">>},
 			   <<"Hello Erlang!">>, Req0),

@@ -3,10 +3,12 @@
 -export([authorized/1]).
 
 authorized(Req) ->
-    Auth = cowboy_req:header(<<"authorization">>, Req, nil),
-    {ok, [{<<"uuid">>, Uuid}]} = jwt:decode(Auth,
+    {ok, Auth} = cowboy_req:header(<<"Authorization">>, Req,
+				   nil),
+    {ok, #{<<"uuid">> := Uuid}} = jwt:decode(Auth,
 					    <<"key">>),
-    accounts_db:get_account(Uuid),
+    Account = accounts_db:get_account(Uuid),
+    % logger:warning("~p", Account),
     % place account in response
     {true, Req}.
 
@@ -16,8 +18,14 @@ authorized(Req) ->
 
 -include_lib("eunit/include/eunit.hrl").
 
-authorized_test() -> 
-    jwt:encode(),
-authorized(#{<<"authorization">>=> ""}), ok.
+authorized_test() ->
+    Claims = [{<<"uuid">>,
+	       <<"779401e8-61d8-4630-aec7-37ca550f6e76">>}],
+    Token = jwt:encode(<<"HS256">>, Claims, <<"key">>),
+    logger:warning("~p", [Token]),
+    authorized(#{headers =>
+		     #{<<"Authorization">> => Token}}),
+    % mock get_user db call
+    ok.
 
 -endif.
