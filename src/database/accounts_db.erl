@@ -12,6 +12,7 @@ insert_account(Email) ->
 		  Now]).    % logger:warning("result is: ~p", [Result]),
 
 get_account(Uuid) ->
+    % {ok, _, [{Id, Email, Fname, Lname}]} -> {ok, #{id => Id, email => Email, fname => Fname, lname => Lname}};
     pgapp:equery(pgdb,
 		 "SELECT id, uuid, email, created_at, "
 		 "updated_at FROM accounts WHERE uuid=$1",

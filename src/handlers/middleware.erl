@@ -6,13 +6,11 @@ authorized(Req) ->
     {ok, Auth} = cowboy_req:header(<<"Authorization">>, Req,
 				   nil),
     {ok, #{<<"uuid">> := Uuid}} = jwt:decode(Auth,
-					    <<"key">>),
+					     <<"key">>),
     Account = accounts_db:get_account(Uuid),
-    % logger:warning("~p", Account),
+    logger:warning("~p", [Account]),
     % place account in response
     {true, Req}.
-
-% meck on db call for testing...
 
 -ifdef(TEST).
 
@@ -22,10 +20,12 @@ authorized_test() ->
     Claims = [{<<"uuid">>,
 	       <<"779401e8-61d8-4630-aec7-37ca550f6e76">>}],
     Token = jwt:encode(<<"HS256">>, Claims, <<"key">>),
-    logger:warning("~p", [Token]),
     authorized(#{headers =>
 		     #{<<"Authorization">> => Token}}),
-    % mock get_user db call
-    ok.
+    meck:new(accounts_db),
+    meck:expect(accounts_db, get_account,
+		fun (Uuid) -> Uuid end),
+    ?assert((meck:validate(accounts_db))),
+    meck:unload(accounts_db).
 
 -endif.
