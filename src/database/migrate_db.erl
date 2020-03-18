@@ -1,6 +1,6 @@
 -module(migrate_db).
 
--export([migrate/0]).
+-export([migrate/0, prepare_test_db/0]).
 
 migrate() ->
     {ok, Conn} = epgsql:connect("localhost", "user", "pass",
@@ -40,4 +40,8 @@ migrate() ->
     ok = MigrationCall(),
     ok = epgsql:close(Conn).
 
-prepare_test_db() -> ok.
+prepare_test_db() ->
+    pgapp:squery(pgdb, "DROP SCHEMA public CASCADE;"),
+    pgapp:squery(pgdb, "create schema public;"),
+    migrate(),
+    ok = fixtures:inject().
