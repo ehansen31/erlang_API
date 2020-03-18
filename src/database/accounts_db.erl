@@ -8,15 +8,22 @@ insert_account(Email) ->
     pgapp:equery(pgdb,
 		 "Insert INTO accounts(email, uuid, created_at, "
 		 "updated_at) VALUES ($1, $2, $3, $3);",
-		 [Email, Uuid,
-		  Now]).    % logger:warning("result is: ~p", [Result]),
+		 [Email, Uuid, Now]).
 
 get_account(Uuid) ->
-    % {ok, _, [{Id, Email, Fname, Lname}]} -> {ok, #{id => Id, email => Email, fname => Fname, lname => Lname}};
-    pgapp:equery(pgdb,
-		 "SELECT id, uuid, email, created_at, "
-		 "updated_at FROM accounts WHERE uuid=$1",
-		 [Uuid]).
+    case pgapp:equery(pgdb,
+		      "SELECT id, uuid, email, created_at, "
+		      "updated_at FROM accounts WHERE uuid=$1",
+		      [Uuid])
+	of
+      {ok, _, [{Id, Uuid, Email, CreatedAt, UpdatedAt}]} ->
+	  {ok,
+	   #{id => Id, uuid => Uuid, email => Email,
+	     created_at => CreatedAt, updated_at => UpdatedAt}};
+      Result ->
+	%   logger:warning("~p", [Result]),
+	  {error, "User does not exist."}
+    end.
 
 -ifdef(TEST).
 
@@ -28,7 +35,8 @@ insert_account_test() ->
 
 get_account_test() ->
     migrate_db:prepare_test_db(),
-    {ok, _, _} =
-	get_account("b06c1b51-da53-43ce-ae4d-ac52ba9da938").
+    Result =
+	get_account("b06c1b51-da53-43ce-ae4d-ac52ba9da938"),
+    logger:warning("~p", [Result]).
 
 -endif.
