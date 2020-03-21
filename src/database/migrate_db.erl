@@ -41,7 +41,14 @@ migrate() ->
     ok = epgsql:close(Conn).
 
 prepare_test_db() ->
-    pgapp:squery(pgdb, "DROP SCHEMA public CASCADE;"),
-    pgapp:squery(pgdb, "create schema public;"),
+    {ok, Conn} = epgsql:connect("localhost", "user", "pass",
+				#{database => "erlang_api", timeout => 4000}),
+    % Conn = pgapp:connect([{size, 10},
+    % 		  {database, "erlang_api"}, {username, "user"},
+    % 		  {password, "pass"}, {host, "localhost"}]),
+    % logger:warning("conn is: ~p", [Conn]),
+    epgsql:squery(Conn, "DROP SCHEMA public CASCADE;"),
+    epgsql:squery(Conn, "create schema public;"),
     migrate(),
-    ok = fixtures:inject().
+    ok = fixtures:inject(Conn),
+    {ok, Conn}.

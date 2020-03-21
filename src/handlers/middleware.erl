@@ -7,6 +7,7 @@ authorized(Req) ->
 				   nil),
     {ok, #{<<"uuid">> := Uuid}} = jwt:decode(Auth,
 					     <<"key">>),
+    % get pool here...
     Account = accounts_db:get_account(Uuid),
     logger:warning("~p", [Account]),
     % place account in response

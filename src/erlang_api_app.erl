@@ -7,7 +7,7 @@
 
 -behaviour(application).
 
--export([start/2, stop/1]).
+-export([init/1, start/2, stop/1]).
 
 start(_StartType, _StartArgs) ->
     Dispatch = cowboy_router:compile([{'_',
@@ -23,3 +23,14 @@ stop(_State) -> ok.
 
 %% internal functions
 
+init([]) ->
+    {ok, Pools} = application:get_env(example, pools),
+    PoolSpecs = lists:map(fun ({Name, SizeArgs,
+				WorkerArgs}) ->
+				  PoolArgs = [{name, {local, Name}},
+					      {worker_module, example_worker}]
+					       ++ SizeArgs,
+				  poolboy:child_spec(Name, PoolArgs, WorkerArgs)
+			  end,
+			  Pools),
+    {ok, {{one_for_one, 10, 10}, PoolSpecs}}.

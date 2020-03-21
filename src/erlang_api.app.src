@@ -13,7 +13,21 @@
     jwt,
     uuid
    ]},
-  {env,[]},
+  {env,[
+    {pools, [
+        {default_pool, 
+            [
+                {size, 10},
+                {max_overflow, 20}
+			], 
+            [
+                {hostname, "localhost"},
+                {database, "erlang_api"},
+                {username, "user"},
+                {password, "pass"}
+            ]}
+        ]}
+  ]},
   {modules, []},
 
   {licenses, ["Apache 2.0"]},
