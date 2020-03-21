@@ -8,10 +8,10 @@
     stdlib,
     cowboy,
     jiffy,
-    pgapp, 
     pure_migrations,
     jwt,
-    uuid
+    uuid,
+    poolboy
    ]},
   {env,[
     {pools, [
@@ -24,11 +24,12 @@
                 {hostname, "localhost"},
                 {database, "erlang_api"},
                 {username, "user"},
-                {password, "pass"}
+                {password, "pass"},
+                {port, 5432}
             ]}
         ]}
   ]},
-  {modules, []},
+  {modules, [erlang_api, erlang_api_worker]},
 
   {licenses, ["Apache 2.0"]},
   {links, []}

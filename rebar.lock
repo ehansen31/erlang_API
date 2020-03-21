@@ -10,7 +10,7 @@
  {<<"jwt">>,{pkg,<<"jwt">>,<<"0.1.9">>},0},
  {<<"meck">>,{pkg,<<"meck">>,<<"0.8.13">>},0},
  {<<"pgapp">>,{pkg,<<"pgapp">>,<<"0.0.2">>},0},
- {<<"poolboy">>,{pkg,<<"poolboy">>,<<"1.5.2">>},1},
+ {<<"poolboy">>,{pkg,<<"poolboy">>,<<"1.5.2">>},0},
  {<<"pure_migrations">>,{pkg,<<"pure_migrations">>,<<"1.3.0">>},0},
  {<<"ranch">>,{pkg,<<"ranch">>,<<"1.7.1">>},1},
  {<<"uuid">>,
