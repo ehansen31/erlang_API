@@ -9,7 +9,7 @@ authorized(Req) ->
 					     <<"key">>),
     % get pool here...
     Account = accounts_db:get_account(Uuid),
-    logger:warning("~p", [Account]),
+    % logger:warning("~p", [Account]),
     % place account in response
     {true, Req}.
 

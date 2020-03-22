@@ -1,27 +1,27 @@
 -module(accounts_db).
 
--export([get_account/2, insert_account/2]).
+-export([get_account/1, insert_account/1]).
 
-insert_account(Conn, Email) ->
+insert_account(Email) ->
     Uuid = uuid:to_string(uuid:uuid4()),
     Now = calendar:local_time(),
-    {ok, _} = pgdb:equery(Conn,
-			  "Insert INTO accounts(email, uuid, created_at, "
-			  "updated_at) VALUES ($1, $2, $3, $3);",
-			  [Email, Uuid, Now]).
+    {ok, _} = pgapp:equery(pgdb,
+			   "Insert INTO accounts(email, uuid, created_at, "
+			   "updated_at) VALUES ($1, $2, $3, $3);",
+			   [Email, Uuid, Now]).
 
-get_account(Conn, Uuid) ->
-    case pgdb:equery(Conn,
-		       "SELECT id, uuid, email, created_at, "
-		       "updated_at FROM accounts WHERE uuid=$1",
-		       [Uuid])
+get_account(Uuid) ->
+    case pgapp:equery(pgdb,
+		      "SELECT id, uuid, email, created_at, "
+		      "updated_at FROM accounts WHERE uuid=$1",
+		      [Uuid])
 	of
       {ok, _, [{Id, Uuid, Email, CreatedAt, UpdatedAt}]} ->
 	  {ok,
 	   #{id => Id, uuid => Uuid, email => Email,
 	     created_at => CreatedAt, updated_at => UpdatedAt}};
       Result ->
-	  %   logger:warning("~p", [Result]),
+	  %   logger:warning("get query result:\n~p", [Result]),
 	  {error, "User does not exist."}
     end.
 
@@ -31,12 +31,18 @@ get_account(Conn, Uuid) ->
 
 insert_account_test() ->
     ok = migrate_db:prepare_test_db(),
-    {ok, _} = insert_account(default_pool,
-			     "ehansen1231@gmail.com").
+    {ok, _} = insert_account("ehansen1231@gmail.com").
 
 get_account_test() ->
     ok = migrate_db:prepare_test_db(),
-    {ok, _} = get_account(default_pool,
-			  "b06c1b51-da53-43ce-ae4d-ac52ba9da938").
+    Uuid = "b06c1b51-da53-43ce-ae4d-ac52ba9da938",
+    Result = pgapp:equery(pgdb,
+			  "SELECT id, uuid, email, created_at, "
+			  "updated_at FROM accounts WHERE uuid=$1",
+			  [Uuid]),
+    logger:warning("get query result:\n~p",
+		   [Result]).    % {ok, _} =
+
+        % get_account("b06c1b51-da53-43ce-ae4d-ac52ba9da938").
 
 -endif.

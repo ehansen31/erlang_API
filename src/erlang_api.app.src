@@ -11,7 +11,8 @@
     pure_migrations,
     jwt,
     uuid,
-    poolboy
+    poolboy,
+    pgapp
    ]},
   {env,[
     {pools, [
