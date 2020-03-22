@@ -5,13 +5,13 @@
 insert_account(Conn, Email) ->
     Uuid = uuid:to_string(uuid:uuid4()),
     Now = calendar:local_time(),
-    {ok, _} = epgsql:equery(Conn,
-			    "Insert INTO accounts(email, uuid, created_at, "
-			    "updated_at) VALUES ($1, $2, $3, $3);",
-			    [Email, Uuid, Now]).
+    {ok, _} = pgdb:equery(Conn,
+			  "Insert INTO accounts(email, uuid, created_at, "
+			  "updated_at) VALUES ($1, $2, $3, $3);",
+			  [Email, Uuid, Now]).
 
 get_account(Conn, Uuid) ->
-    case epgsql:equery(Conn,
+    case pgdb:equery(Conn,
 		       "SELECT id, uuid, email, created_at, "
 		       "updated_at FROM accounts WHERE uuid=$1",
 		       [Uuid])
@@ -30,12 +30,13 @@ get_account(Conn, Uuid) ->
 -include_lib("eunit/include/eunit.hrl").
 
 insert_account_test() ->
-    {ok, Conn} = migrate_db:prepare_test_db(),
-    {ok, _} = insert_account(Conn, "ehansen1231@gmail.com").
+    ok = migrate_db:prepare_test_db(),
+    {ok, _} = insert_account(default_pool,
+			     "ehansen1231@gmail.com").
 
 get_account_test() ->
-    {ok, Conn} = migrate_db:prepare_test_db(),
-    {ok, _} = get_account(Conn,
+    ok = migrate_db:prepare_test_db(),
+    {ok, _} = get_account(default_pool,
 			  "b06c1b51-da53-43ce-ae4d-ac52ba9da938").
 
 -endif.

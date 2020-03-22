@@ -3,17 +3,16 @@
 -export([migrate/0, prepare_test_db/0]).
 
 migrate() ->
-    {ok, Conn} = epgsql:connect("localhost", "user", "pass",
-				#{database => "erlang_api", timeout => 4000}),
+    Conn = default_pool,
     MigrationCall =
 	pure_migrations:migrate("src/database/migrations",
 				fun (F) ->
-					epgsql:with_transaction(Conn,
-								fun (_) -> F()
-								end)
+					pgdb:with_transaction(Conn,
+							      fun (_) -> F()
+							      end)
 				end,
 				fun (Q) ->
-					case epgsql:squery(Conn, Q) of
+					case pgdb:squery(Conn, Q) of
 					  {ok,
 					   [{column, <<"version">>, _, _, _, _,
 					     _},
@@ -37,18 +36,15 @@ migrate() ->
 					  Default -> Default
 					end
 				end),
-    ok = MigrationCall(),
-    ok = epgsql:close(Conn).
+    ok = MigrationCall().
+
+    % ok = epgsql:close(Conn).
 
 prepare_test_db() ->
-    {ok, Conn} = epgsql:connect("localhost", "user", "pass",
-				#{database => "erlang_api", timeout => 4000}),
-    % Conn = pgapp:connect([{size, 10},
-    % 		  {database, "erlang_api"}, {username, "user"},
-    % 		  {password, "pass"}, {host, "localhost"}]),
-    % logger:warning("conn is: ~p", [Conn]),
-    epgsql:squery(Conn, "DROP SCHEMA public CASCADE;"),
-    epgsql:squery(Conn, "create schema public;"),
-    migrate(),
-    ok = fixtures:inject(Conn),
-    {ok, Conn}.
+    % erlang_api_app:init([]),
+    pgdb:squery(default_pool,
+		"DROP SCHEMA public CASCADE;"),
+    pgdb:squery(default_pool, "create schema public;"),
+    Result = migrate(),
+    logger:warning("migrate result: ~p", [Result]),
+    ok = fixtures:inject(default_pool).

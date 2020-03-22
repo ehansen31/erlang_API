@@ -9,7 +9,7 @@
 
 -behaviour(supervisor).
 
--export([equery/3, squery/2, start/0, stop/0]).
+-export([start/0, stop/0]).
 
 -export([start/2, stop/1]).
 
@@ -47,14 +47,3 @@ init([]) ->
 			  end,
 			  Pools),
     {ok, {{one_for_one, 10, 10}, PoolSpecs}}.
-
-squery(PoolName, Sql) ->
-    poolboy:transaction(PoolName,
-			fun (Worker) -> gen_server:call(Worker, {squery, Sql})
-			end).
-
-equery(PoolName, Stmt, Params) ->
-    poolboy:transaction(PoolName,
-			fun (Worker) ->
-				gen_server:call(Worker, {equery, Stmt, Params})
-			end).
