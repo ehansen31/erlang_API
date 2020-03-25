@@ -16,13 +16,12 @@ get_account(Uuid) ->
 		      "updated_at FROM accounts WHERE uuid=$1",
 		      [Uuid])
 	of
-      {ok, _, [{Id, Uuid, Email, CreatedAt, UpdatedAt}]} ->
+      {ok, _, [{Id, Uuid1, Email, CreatedAt, UpdatedAt}]} ->
 	  {ok,
-	   #{id => Id, uuid => Uuid, email => Email,
+	   #{id => Id, uuid => Uuid1, email => Email,
 	     created_at => CreatedAt, updated_at => UpdatedAt}};
       Result ->
-	  %   logger:warning("get query result:\n~p", [Result]),
-	  {error, "User does not exist."}
+	  {ok, _, Val} = Result, {error, "User does not exist."}
     end.
 
 -ifdef(TEST).
@@ -35,14 +34,7 @@ insert_account_test() ->
 
 get_account_test() ->
     ok = migrate_db:prepare_test_db(),
-    Uuid = "b06c1b51-da53-43ce-ae4d-ac52ba9da938",
-    Result = pgapp:equery(pgdb,
-			  "SELECT id, uuid, email, created_at, "
-			  "updated_at FROM accounts WHERE uuid=$1",
-			  [Uuid]),
-    logger:warning("get query result:\n~p",
-		   [Result]).    % {ok, _} =
-
-        % get_account("b06c1b51-da53-43ce-ae4d-ac52ba9da938").
+    {ok, _} =
+	get_account("b06c1b51-da53-43ce-ae4d-ac52ba9da938").
 
 -endif.
