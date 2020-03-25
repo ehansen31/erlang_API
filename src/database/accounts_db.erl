@@ -34,7 +34,9 @@ insert_account_test() ->
 
 get_account_test() ->
     ok = migrate_db:prepare_test_db(),
-    {ok, _} =
-	get_account("b06c1b51-da53-43ce-ae4d-ac52ba9da938").
+    {ok, Result} =
+	get_account("b06c1b51-da53-43ce-ae4d-ac52ba9da938"),
+    <<"b06c1b51-da53-43ce-ae4d-ac52ba9da938">> = maps:get(uuid,
+						      Result).
 
 -endif.
