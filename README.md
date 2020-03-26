@@ -12,7 +12,7 @@ Starter for a scalable web service written in Erlang. Goal of the project is to 
 |github actions ci w/unit tests|
 |database migrations with erlang pure migrations|
 |mocks with meck|
-
+|database fixtures for injecting test data|
 
 ToDo:
 -----
