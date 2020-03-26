@@ -9,39 +9,50 @@ Starter for a scalable web service written in Erlang. Goal of the project is to 
 |postgres|
 |jwt authorization|
 |cowboy for endpoints|
-||
-||
-
+|github actions ci w/unit tests|
+|database migrations with erlang pure migrations|
+|mocks with meck|
 
 | ToDo |
 |:-------------:|
+|swagger codegen|
 |RabbitMQ integration|
+|containerized deployment|
 
+Requirements
+=====
+rebar3
+erlang otp
+docker/docker-compose
+
+Infrastructure
+-----
+    docker-compose up -d
 
 Build
 -----
-    $ rebar3 compile
+    rebar3 compile
 ```erlang
-    r3:compile().
+r3:compile().
 ```
 
 Run
 -----
-    $ rebar3 run
+    rebar3 run
 
 Shell
 -----
-    $ rebar3 shell
+    rebar3 shell
 
 Database Migrations
 -----
 ```erlang
-    migrate_db:migrate().
+migrate_db:migrate().
 ```
 
 Tests
 -----
-    $ rebar3 eunit
+    rebar3 eunit
 ```erlang
-    r3:eunit().
+r3:eunit().
 ```
