@@ -23,7 +23,9 @@ ToDo:
 Requirements
 =====
 rebar3
+
 erlang otp
+
 docker/docker-compose
 
 Infrastructure
