@@ -6,7 +6,8 @@ Starter for a scalable web service written in Erlang. Goal of the project is to 
 | Features |
 |:-----------------------------------------------------------------|
 |pgapp for poolboy and epgsql integration|
-|postgres|
+|postgres via epgsql|
+|db conn pool via poolboy|
 |jwt authorization|
 |cowboy for endpoints|
 |github actions ci w/unit tests|
@@ -19,6 +20,7 @@ ToDo:
 * swagger codegen
 * RabbitMQ integration
 * containerized deployment
+* background processor
 
 Requirements
 =====
@@ -31,6 +33,10 @@ docker/docker-compose
 Infrastructure
 -----
     docker-compose up -d
+
+Dependencies
+-----
+    rebar3 deps get
 
 Build
 -----
