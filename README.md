@@ -14,11 +14,11 @@ Starter for a scalable web service written in Erlang. Goal of the project is to 
 |mocks with meck|
 
 
-| ToDo |
-|:-----------------------------------------------------------------|
-|swagger codegen|
-|RabbitMQ integration|
-|containerized deployment|
+ToDo:
+-----
+* swagger codegen
+* RabbitMQ integration
+* containerized deployment
 
 Requirements
 =====
