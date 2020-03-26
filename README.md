@@ -4,7 +4,6 @@ erlang_api ![Erlang CI](https://github.com/ehansen31/erlang_api/workflows/Erlang
 Starter for a scalable web service written in Erlang. Goal of the project is to have a boilerplate complete project that can be added on top to meet any number of business requirements from standalone api to a front end integrated server.
 
 | Features |
-|:-------------:|
 |:-----------------------------------------------------------------|
 |pgapp for poolboy and epgsql integration|
 |postgres|
@@ -16,7 +15,6 @@ Starter for a scalable web service written in Erlang. Goal of the project is to 
 
 
 | ToDo |
-|:-------------:|
 |:-----------------------------------------------------------------|
 |swagger codegen|
 |RabbitMQ integration|
