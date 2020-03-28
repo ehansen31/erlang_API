@@ -68,4 +68,4 @@ r3:eunit().
 
 Generate Endpoints & Docs
 -----
-    swagger generate -i /home/erik/workspace/erlang_api/.swagger-codegen/swagger-example.json -l erlang-server -o /home/erik/workspace/erlang_api/src/swagger
+    make
