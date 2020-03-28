@@ -56,66 +56,10 @@ rest_init(Req0, {Operations, LogicHandler, ValidatorState}) ->
 allowed_methods(
     Req,
     State = #state{
-        operation_id = 'CreateUser'
-    }
-) ->
-    {[<<"POST">>], Req, State};
-
-allowed_methods(
-    Req,
-    State = #state{
-        operation_id = 'CreateUsersWithArrayInput'
-    }
-) ->
-    {[<<"POST">>], Req, State};
-
-allowed_methods(
-    Req,
-    State = #state{
-        operation_id = 'CreateUsersWithListInput'
-    }
-) ->
-    {[<<"POST">>], Req, State};
-
-allowed_methods(
-    Req,
-    State = #state{
-        operation_id = 'DeleteUser'
-    }
-) ->
-    {[<<"DELETE">>], Req, State};
-
-allowed_methods(
-    Req,
-    State = #state{
-        operation_id = 'GetUserByName'
+        operation_id = 'GetUser'
     }
 ) ->
     {[<<"GET">>], Req, State};
-
-allowed_methods(
-    Req,
-    State = #state{
-        operation_id = 'LoginUser'
-    }
-) ->
-    {[<<"GET">>], Req, State};
-
-allowed_methods(
-    Req,
-    State = #state{
-        operation_id = 'LogoutUser'
-    }
-) ->
-    {[<<"GET">>], Req, State};
-
-allowed_methods(
-    Req,
-    State = #state{
-        operation_id = 'UpdateUser'
-    }
-) ->
-    {[<<"PUT">>], Req, State};
 
 allowed_methods(Req, State) ->
     {[], Req, State}.
@@ -127,13 +71,25 @@ allowed_methods(Req, State) ->
         State :: state()
     }.
 
-
-
-
-
-
-
-
+is_authorized(
+    Req0,
+    State = #state{
+        operation_id = 'GetUser' = OperationID,
+        logic_handler = LogicHandler
+    }
+) ->
+    From = header,
+    Result = swagger_auth:authorize_api_key(
+        LogicHandler,
+        OperationID,
+        From,
+        "api_key",
+        Req0
+    ),
+    case Result of
+        {true, Context, Req} ->  {true, Req, State#state{context = Context}};
+        {false, AuthHeader, Req} ->  {{false, AuthHeader}, Req, State}
+    end;
 
 is_authorized(Req, State) ->
     {true, Req, State}.
@@ -156,77 +112,7 @@ content_types_accepted(Req, State) ->
 valid_content_headers(
     Req0,
     State = #state{
-        operation_id = 'CreateUser'
-    }
-) ->
-    Headers = [],
-    {Result, Req} = validate_headers(Headers, Req0),
-    {Result, Req, State};
-
-valid_content_headers(
-    Req0,
-    State = #state{
-        operation_id = 'CreateUsersWithArrayInput'
-    }
-) ->
-    Headers = [],
-    {Result, Req} = validate_headers(Headers, Req0),
-    {Result, Req, State};
-
-valid_content_headers(
-    Req0,
-    State = #state{
-        operation_id = 'CreateUsersWithListInput'
-    }
-) ->
-    Headers = [],
-    {Result, Req} = validate_headers(Headers, Req0),
-    {Result, Req, State};
-
-valid_content_headers(
-    Req0,
-    State = #state{
-        operation_id = 'DeleteUser'
-    }
-) ->
-    Headers = [],
-    {Result, Req} = validate_headers(Headers, Req0),
-    {Result, Req, State};
-
-valid_content_headers(
-    Req0,
-    State = #state{
-        operation_id = 'GetUserByName'
-    }
-) ->
-    Headers = [],
-    {Result, Req} = validate_headers(Headers, Req0),
-    {Result, Req, State};
-
-valid_content_headers(
-    Req0,
-    State = #state{
-        operation_id = 'LoginUser'
-    }
-) ->
-    Headers = [],
-    {Result, Req} = validate_headers(Headers, Req0),
-    {Result, Req, State};
-
-valid_content_headers(
-    Req0,
-    State = #state{
-        operation_id = 'LogoutUser'
-    }
-) ->
-    Headers = [],
-    {Result, Req} = validate_headers(Headers, Req0),
-    {Result, Req, State};
-
-valid_content_headers(
-    Req0,
-    State = #state{
-        operation_id = 'UpdateUser'
+        operation_id = 'GetUser'
     }
 ) ->
     Headers = [],
