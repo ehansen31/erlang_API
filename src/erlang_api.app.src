@@ -12,8 +12,10 @@
     jwt,
     uuid,
     poolboy,
-    pgapp
+    pgapp,
+    swagger
    ]},
+{included_applications, [swagger]},
   {env,[
     {pools, [
         {default_pool, 
