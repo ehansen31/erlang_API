@@ -1,2 +1,2 @@
 all:
-	swagger generate -i ./src/swagger/.swagger-codegen/swagger.json -l erlang-server -o ./src/swagger
+	swagger generate -i ./src/swagger/priv/swagger.json -l erlang-server -o ./src/swagger
