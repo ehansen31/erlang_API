@@ -20,10 +20,6 @@ start_link() ->
 				       logic_handler =>
 					   swagger_default_logic_handler,
 				       net_opts => []}),
-    % start cowboy here with spec
-    cowboy:start_clear
-    logger:warning("spec is:\n~p", [Spec]),
-    % {ok, _} = application:ensure_all_started(cowboy),
     supervisor:start_child(erlang_api_sup, Spec).
 
 %% sup_flags() = #{strategy => strategy(),         % optional
