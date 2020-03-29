@@ -14,13 +14,7 @@
 -define(SERVER, ?MODULE).
 
 start_link() ->
-    supervisor:start_link({local, ?SERVER}, ?MODULE, []),
-    Spec = swagger_server:child_spec(api,
-				     #{ip => {127, 0, 0, 1}, port => 8080,
-				       logic_handler =>
-					   swagger_default_logic_handler,
-				       net_opts => []}),
-    supervisor:start_child(erlang_api_sup, Spec).
+    supervisor:start_link({local, ?SERVER}, ?MODULE, []).
 
 %% sup_flags() = #{strategy => strategy(),         % optional
 %%                 intensity => non_neg_integer(), % optional

@@ -1,9 +1,9 @@
--module(swagger_router).
+-module(openapi_router).
 
 -export([get_paths/1]).
 
 -type operations() :: #{
-    Method :: binary() => swagger_api:operation_id()
+    Method :: binary() => openapi_api:operation_id()
 }.
 
 -type init_opts()  :: {
@@ -58,17 +58,17 @@ get_operations() ->
         'GetUser' => #{
             path => "/user",
             method => <<"GET">>,
-            handler => 'swagger_user_handler'
+            handler => 'openapi_user_handler'
         }
     }.
 
 prepare_validator() ->
-    R = jsx:decode(element(2, file:read_file(get_swagger_path()))),
+    R = jsx:decode(element(2, file:read_file(get_openapi_path()))),
     jesse_state:new(R, [{default_schema_ver, <<"http://json-schema.org/draft-04/schema#">>}]).
 
 
-get_swagger_path() ->
+get_openapi_path() ->
     {ok, AppName} = application:get_application(?MODULE),
-    filename:join(swagger_utils:priv_dir(AppName), "swagger.json").
+    filename:join(openapi_utils:priv_dir(AppName), "openapi.json").
 
 

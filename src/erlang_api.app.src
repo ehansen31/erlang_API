@@ -13,9 +13,9 @@
     uuid,
     poolboy,
     pgapp,
-    swagger
+    openapi
    ]},
-{included_applications, [swagger]},
+{included_applications, [openapi]},
   {env,[
     {pools, [
         {default_pool, 
