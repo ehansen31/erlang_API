@@ -14,7 +14,17 @@
 -define(SERVER, ?MODULE).
 
 start_link() ->
-    supervisor:start_link({local, ?SERVER}, ?MODULE, []).
+    supervisor:start_link({local, ?SERVER}, ?MODULE, []),
+    Spec = swagger_server:child_spec(api,
+				     #{ip => {127, 0, 0, 1}, port => 8080,
+				       logic_handler =>
+					   swagger_default_logic_handler,
+				       net_opts => []}),
+    % start cowboy here with spec
+    cowboy:start_clear
+    logger:warning("spec is:\n~p", [Spec]),
+    % {ok, _} = application:ensure_all_started(cowboy),
+    supervisor:start_child(erlang_api_sup, Spec).
 
 %% sup_flags() = #{strategy => strategy(),         % optional
 %%                 intensity => non_neg_integer(), % optional
@@ -26,10 +36,10 @@ start_link() ->
 %%                  type => worker(),       % optional
 %%                  modules => modules()}   % optional
 init([]) ->
-    SupFlags = #{strategy => one_for_all,
-                 intensity => 0,
-                 period => 1},
+    SupFlags = #{strategy => one_for_all, intensity => 0,
+		 period => 1},
     ChildSpecs = [],
     {ok, {SupFlags, ChildSpecs}}.
 
 %% internal functions
+
