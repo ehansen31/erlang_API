@@ -183,7 +183,7 @@ font-style: italic;
     <div class="app-desc"><p>erlang_api spec</p>
 <p>This is a sample server Petstore server.  You can find out more about Swagger at <a href="http://swagger.io">http://swagger.io</a> or on <a href="http://swagger.io/irc/">irc.freenode.net, #swagger</a>.  For this sample, you can use the api key <code>special-key</code> to test the authorization filters.</p>
 </div>
-    <div class="app-desc">More information: <a href="https://helloreverb.com">https://helloreverb.com</a></div>
+    <div class="app-desc">More information: <a href="https://openapi-generator.tech">https://openapi-generator.tech</a></div>
     <div class="app-desc">Contact Info: <a href="e.hansen31@live.com">e.hansen31@live.com</a></div>
     <div class="app-desc">Version: 1.0.0</div>
     <div class="app-desc">BasePath:</div>
@@ -201,14 +201,14 @@ font-style: italic;
   <div class="method-summary"></div>
   <h4><a href="#User">User</a></h4>
   <ul>
-  <li><a href="#getUser"><code><span class="http-method">get</span> /user</code></a></li>
+  <li><a href="#getUser"><code><span class="http-method">get</span> /user/{userId}</code></a></li>
   </ul>
 
   <h1><a name="User">User</a></h1>
   <div class="method"><a name="getUser"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="get"><code class="huge"><span class="http-method">get</span> /user</code></pre></div>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /user/{userId}</code></pre></div>
     <div class="method-summary">Get an existing user (<span class="nickname">getUser</span>)</div>
     <div class="method-notes"></div>
 
@@ -216,14 +216,9 @@ font-style: italic;
     <div class="field-items">
       <div class="param">userId (required)</div>
 
-      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID of account to return format: int</div>
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID of account to return default: null format: int</div>
     </div>  <!-- field-items -->
 
-    <h3 class="field-label">Consumes</h3>
-    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
-    <ul>
-      <li><code>application/json</code></li>
-    </ul>
 
 
 
