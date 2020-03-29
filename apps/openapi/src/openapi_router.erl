@@ -56,7 +56,7 @@ group_paths() ->
 get_operations() ->
     #{ 
         'GetUser' => #{
-            path => "/user",
+            path => "/user/:userId",
             method => <<"GET">>,
             handler => 'openapi_user_handler'
         }

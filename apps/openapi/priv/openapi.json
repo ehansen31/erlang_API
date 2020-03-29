@@ -25,7 +25,7 @@
     "name" : "user"
   } ],
   "paths" : {
-    "/user" : {
+    "/user/{userId}" : {
       "get" : {
         "operationId" : "getUser",
         "parameters" : [ {
@@ -58,9 +58,6 @@
             "description" : "Account not found"
           }
         },
-        "security" : [ {
-          "api_key" : [ ]
-        } ],
         "summary" : "Get an existing user",
         "tags" : [ "user" ]
       }

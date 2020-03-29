@@ -25,7 +25,7 @@
   } ],
   "schemes" : [ "http" ],
   "paths" : {
-    "/user" : {
+    "/user/{userId}" : {
       "get" : {
         "tags" : [ "user" ],
         "summary" : "Get an existing user",
@@ -54,10 +54,7 @@
           "404" : {
             "description" : "Account not found"
           }
-        },
-        "security" : [ {
-          "api_key" : [ ]
-        } ]
+        }
       }
     }
   },
