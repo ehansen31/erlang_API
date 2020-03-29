@@ -17,7 +17,6 @@ Starter for a scalable web service written in Erlang. Goal of the project is to 
 
 ToDo:
 -----
-* swagger codegen
 * RabbitMQ integration
 * containerized deployment
 * background processor
@@ -29,6 +28,8 @@ rebar3
 erlang otp
 
 docker/docker-compose
+
+open api code generator (https://github.com/OpenAPITools/openapi-generator)
 
 Infrastructure
 -----
