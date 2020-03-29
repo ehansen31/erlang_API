@@ -15,9 +15,8 @@
 -spec request_params(OperationID :: operation_id()) -> [Param :: request_param()].
 
 
-request_params('GetUser') ->
+request_params('GetAccount') ->
     [
-        'userId'
     ];
 
 request_params(_) ->
@@ -49,15 +48,6 @@ request_params(_) ->
 }.
 
 
-
-request_param_info('GetUser', 'userId') ->
-    #{
-        source =>  binding ,
-        rules => [
-            {type, 'integer'},
-            required
-        ]
-    };
 
 request_param_info(OperationID, Name) ->
     error({unknown_param, OperationID, Name}).
@@ -106,11 +96,11 @@ populate_request_param(OperationID, Name, Req0, ValidatorState) ->
 ) -> ok | no_return().
 
 
-validate_response('GetUser', 200, Body, ValidatorState) ->
-    validate_response_body('User', 'User', Body, ValidatorState);
-validate_response('GetUser', 400, Body, ValidatorState) ->
+validate_response('GetAccount', 200, Body, ValidatorState) ->
+    validate_response_body('Account', 'Account', Body, ValidatorState);
+validate_response('GetAccount', 400, Body, ValidatorState) ->
     validate_response_body('', '', Body, ValidatorState);
-validate_response('GetUser', 404, Body, ValidatorState) ->
+validate_response('GetAccount', 404, Body, ValidatorState) ->
     validate_response_body('', '', Body, ValidatorState);
 
 

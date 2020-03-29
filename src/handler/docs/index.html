@@ -180,15 +180,13 @@ font-style: italic;
   </head>
   <body>
   <h1>erlang_api</h1>
-    <div class="app-desc"><p>erlang_api spec</p>
-<p>This is a sample server Petstore server.  You can find out more about Swagger at <a href="http://swagger.io">http://swagger.io</a> or on <a href="http://swagger.io/irc/">irc.freenode.net, #swagger</a>.  For this sample, you can use the api key <code>special-key</code> to test the authorization filters.</p>
-</div>
+    <div class="app-desc">erlang_api specification</div>
     <div class="app-desc">More information: <a href="https://openapi-generator.tech">https://openapi-generator.tech</a></div>
-    <div class="app-desc">Contact Info: <a href="e.hansen31@live.com">e.hansen31@live.com</a></div>
+    <div class="app-desc">Contact Info: <a href="team@openapitools.org">team@openapitools.org</a></div>
     <div class="app-desc">Version: 1.0.0</div>
     <div class="app-desc">BasePath:</div>
-    <div class="license-info">Apache-2.0</div>
-    <div class="license-url">http://www.apache.org/licenses/LICENSE-2.0.html</div>
+    <div class="license-info">All rights reserved</div>
+    <div class="license-url">http://apache.org/licenses/LICENSE-2.0.html</div>
   <h2>Access</h2>
     <ol>
       <li>APIKey KeyParamName:api_key KeyInQuery:false KeyInHeader:true</li>
@@ -199,25 +197,19 @@ font-style: italic;
 
   <h3>Table of Contents </h3>
   <div class="method-summary"></div>
-  <h4><a href="#User">User</a></h4>
+  <h4><a href="#Account">Account</a></h4>
   <ul>
-  <li><a href="#getUser"><code><span class="http-method">get</span> /user/{userId}</code></a></li>
+  <li><a href="#getAccount"><code><span class="http-method">get</span> /account/</code></a></li>
   </ul>
 
-  <h1><a name="User">User</a></h1>
-  <div class="method"><a name="getUser"/>
+  <h1><a name="Account">Account</a></h1>
+  <div class="method"><a name="getAccount"/>
     <div class="method-path">
     <a class="up" href="#__Methods">Up</a>
-    <pre class="get"><code class="huge"><span class="http-method">get</span> /user/{userId}</code></pre></div>
-    <div class="method-summary">Get an existing user (<span class="nickname">getUser</span>)</div>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /account/</code></pre></div>
+    <div class="method-summary">Get an existing account (<span class="nickname">getAccount</span>)</div>
     <div class="method-notes"></div>
 
-    <h3 class="field-label">Path parameters</h3>
-    <div class="field-items">
-      <div class="param">userId (required)</div>
-
-      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID of account to return default: null format: int</div>
-    </div>  <!-- field-items -->
 
 
 
@@ -226,7 +218,7 @@ font-style: italic;
 
     <h3 class="field-label">Return type</h3>
     <div class="return-type">
-      <a href="#User">User</a>
+      <a href="#Account">Account</a>
       
     </div>
 
@@ -235,14 +227,7 @@ font-style: italic;
     <h3 class="field-label">Example data</h3>
     <div class="example-data-content-type">Content-Type: application/json</div>
     <pre class="example"><code>{
-  "firstName" : "firstName",
-  "lastName" : "lastName",
-  "password" : "password",
-  "userStatus" : 6,
-  "phone" : "phone",
-  "id" : 0,
-  "email" : "email",
-  "username" : "username"
+  "id" : 1
 }</code></pre>
 
     <h3 class="field-label">Produces</h3>
@@ -255,9 +240,9 @@ font-style: italic;
     <h3 class="field-label">Responses</h3>
     <h4 class="field-label">200</h4>
     successful operation
-        <a href="#User">User</a>
+        <a href="#Account">Account</a>
     <h4 class="field-label">400</h4>
-    Invalid ID supplied
+    Invalid API Key supplied
         <a href="#"></a>
     <h4 class="field-label">404</h4>
     Account not found
@@ -270,21 +255,14 @@ font-style: italic;
 
   <h3>Table of Contents</h3>
   <ol>
-    <li><a href="#User"><code>User</code> - a User</a></li>
+    <li><a href="#Account"><code>Account</code> - an Account</a></li>
   </ol>
 
   <div class="model">
-    <h3><a name="User"><code>User</code> - a User</a> <a class="up" href="#__Models">Up</a></h3>
-    <div class='model-description'>A User who is purchasing from the pet store</div>
+    <h3><a name="Account"><code>Account</code> - an Account</a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'>An account with access to the api</div>
     <div class="field-items">
       <div class="param">id (optional)</div><div class="param-desc"><span class="param-type"><a href="#long">Long</a></span>  format: int64</div>
-<div class="param">username (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
-<div class="param">firstName (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
-<div class="param">lastName (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
-<div class="param">email (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
-<div class="param">password (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
-<div class="param">phone (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
-<div class="param">userStatus (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span> User Status format: int32</div>
     </div>  <!-- field-items -->
   </div>
   </body>

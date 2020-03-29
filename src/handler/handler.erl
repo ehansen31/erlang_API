@@ -10,7 +10,12 @@
 			    openapi_api:operation_id(),
 			ApiKey :: binary()) -> {true, #{}}.
 
-authorize_api_key(_, _) -> {true, #{}}.
+authorize_api_key(_, ApiKey) ->
+    {ok, #{<<"uuid">> := Uuid}} = jwt:decode(ApiKey,
+					     <<"key">>),
+    Account = accounts_db:get_account(Uuid),
+    logger:warning("made it into auth\n~p", [Account]),
+    {true, #{account => Account}}.
 
 -spec handle_request(OperationID ::
 			 openapi_api:operation_id(),
@@ -21,13 +26,32 @@ authorize_api_key(_, _) -> {true, #{}}.
 								  Body ::
 								      jsx:json_term()}.
 
-handle_request('GetUser', Req, Context) ->
+handle_request('GetAccount', Req, Context) ->
     logger:warning("Request object:\n~p", [Req]),
     logger:warning("Context object:\n~p", [Context]),
-    logger:warning("get user handler"),
+    logger:warning("get account handler"),
     {200, #{}, #{}};
 handle_request(OperationID, Req, Context) ->
     error_logger:error_msg("Got not implemented request to process: "
 			   "~p~n",
 			   [{OperationID, Req, Context}]),
     {501, #{}, #{}}.
+
+-ifdef(TEST).
+
+-include_lib("eunit/include/eunit.hrl").
+
+authorized_test() ->
+    Claims = [{<<"uuid">>,
+	       <<"b06c1b51-da53-43ce-ae4d-ac52ba9da938">>}],
+    {ok, Token} = jwt:encode(<<"HS256">>, Claims,
+			     <<"key">>),
+    logger:warning("token is: ~p", [Token]),
+    meck:new(accounts_db),
+    meck:expect(accounts_db, get_account,
+		fun (Uuid) -> #{id => 1, uuid => Uuid} end),
+    {true, _} = authorize_api_key('GetAccount', Token),
+    ?assert((meck:validate(accounts_db))),
+    meck:unload(accounts_db).
+
+-endif.

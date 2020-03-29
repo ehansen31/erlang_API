@@ -1,5 +1,5 @@
 %% basic handler
--module(openapi_user_handler).
+-module(openapi_account_handler).
 
 %% Cowboy REST callbacks
 -export([allowed_methods/2]).
@@ -49,7 +49,7 @@ init(Req, {Operations, LogicHandler, ValidatorState}) ->
 allowed_methods(
     Req,
     State = #state{
-        operation_id = 'GetUser'
+        operation_id = 'GetAccount'
     }
 ) ->
     {[<<"GET">>], Req, State};
@@ -63,6 +63,25 @@ allowed_methods(Req, State) ->
         Req :: cowboy_req:req(),
         State :: state()
     }.
+is_authorized(
+    Req0,
+    State = #state{
+        operation_id = 'GetAccount' = OperationID,
+        logic_handler = LogicHandler
+    }
+) ->
+    From = header,
+    Result = openapi_auth:authorize_api_key(
+        LogicHandler,
+        OperationID,
+        From,
+        "api_key",
+        Req0
+    ),
+    case Result of
+        {true, Context, Req} ->  {true, Req, State#state{context = Context}};
+        {false, AuthHeader, Req} ->  {{false, AuthHeader}, Req, State}
+    end;
 is_authorized(Req, State) ->
     {true, Req, State}.
 
@@ -84,7 +103,7 @@ content_types_accepted(Req, State) ->
 valid_content_headers(
     Req0,
     State = #state{
-        operation_id = 'GetUser'
+        operation_id = 'GetAccount'
     }
 ) ->
     Headers = [],

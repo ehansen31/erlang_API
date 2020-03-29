@@ -6,12 +6,9 @@
   {applications,
    [kernel,
     stdlib,
-    cowboy,
-    jiffy,
     pure_migrations,
     jwt,
     uuid,
-    poolboy,
     pgapp,
     openapi
    ]},

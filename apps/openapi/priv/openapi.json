@@ -1,49 +1,31 @@
 {
   "openapi" : "3.0.1",
   "info" : {
-    "contact" : {
-      "email" : "e.hansen31@live.com"
-    },
-    "description" : "erlang_api spec\n\nThis is a sample server Petstore server.  You can find out more about Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).  For this sample, you can use the api key `special-key` to test the authorization filters.",
-    "license" : {
-      "name" : "Apache-2.0",
-      "url" : "http://www.apache.org/licenses/LICENSE-2.0.html"
-    },
-    "termsOfService" : "http://swagger.io/terms/",
+    "description" : "erlang_api specification",
     "title" : "erlang_api",
     "version" : "1.0.0"
   },
   "servers" : [ {
-    "url" : "http://erlang_api.swagger.io/"
+    "url" : "http://erlang_api.io/"
   } ],
   "tags" : [ {
     "description" : "Operations about user",
     "externalDocs" : {
-      "description" : "Find out more about erlang_api",
-      "url" : "http://swagger.io"
+      "description" : "Register for an account & get an api key",
+      "url" : "http://erlang_api.io"
     },
-    "name" : "user"
+    "name" : "account"
   } ],
   "paths" : {
-    "/user/{userId}" : {
+    "/account/" : {
       "get" : {
-        "operationId" : "getUser",
-        "parameters" : [ {
-          "description" : "ID of account to return",
-          "in" : "path",
-          "name" : "userId",
-          "required" : true,
-          "schema" : {
-            "format" : "int",
-            "type" : "integer"
-          }
-        } ],
+        "operationId" : "getAccount",
         "responses" : {
           "200" : {
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/User"
+                  "$ref" : "#/components/schemas/Account"
                 }
               }
             },
@@ -51,66 +33,36 @@
           },
           "400" : {
             "content" : { },
-            "description" : "Invalid ID supplied"
+            "description" : "Invalid API Key supplied"
           },
           "404" : {
             "content" : { },
             "description" : "Account not found"
           }
         },
-        "summary" : "Get an existing user",
-        "tags" : [ "user" ]
+        "security" : [ {
+          "api_key" : [ ]
+        } ],
+        "summary" : "Get an existing account",
+        "tags" : [ "account" ]
       }
     }
   },
   "components" : {
     "schemas" : {
-      "User" : {
-        "description" : "A User who is purchasing from the pet store",
+      "Account" : {
+        "description" : "An account with access to the api",
         "example" : {
-          "firstName" : "firstName",
-          "lastName" : "lastName",
-          "password" : "password",
-          "userStatus" : 6,
-          "phone" : "phone",
-          "id" : 0,
-          "email" : "email",
-          "username" : "username"
+          "id" : 1
         },
         "properties" : {
           "id" : {
             "format" : "int64",
             "type" : "integer"
-          },
-          "username" : {
-            "type" : "string"
-          },
-          "firstName" : {
-            "type" : "string"
-          },
-          "lastName" : {
-            "type" : "string"
-          },
-          "email" : {
-            "type" : "string"
-          },
-          "password" : {
-            "type" : "string"
-          },
-          "phone" : {
-            "type" : "string"
-          },
-          "userStatus" : {
-            "description" : "User Status",
-            "format" : "int32",
-            "type" : "integer"
           }
         },
-        "title" : "a User",
-        "type" : "object",
-        "xml" : {
-          "name" : "User"
-        }
+        "title" : "an Account",
+        "type" : "object"
       }
     },
     "securitySchemes" : {

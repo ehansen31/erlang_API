@@ -55,10 +55,10 @@ group_paths() ->
 
 get_operations() ->
     #{ 
-        'GetUser' => #{
-            path => "/user/:userId",
+        'GetAccount' => #{
+            path => "/account/",
             method => <<"GET">>,
-            handler => 'openapi_user_handler'
+            handler => 'openapi_account_handler'
         }
     }.
 

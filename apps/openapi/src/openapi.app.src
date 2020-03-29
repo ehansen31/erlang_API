@@ -1,5 +1,5 @@
 {application, openapi, [
-    {description, "erlang_api spec  This is a sample server Petstore server.  You can find out more about Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).  For this sample, you can use the api key &#x60;special-key&#x60; to test the authorization filters."},
+    {description, "erlang_api specification"},
     {vsn, "1.0.0"},
     {registered, []},
     {applications, [
@@ -14,6 +14,6 @@
     {env, [
     ]},
     {modules, []},
-    {licenses, ["Apache-2.0"]},
+    {licenses, []},
     {links, []}
 ]}.
