@@ -14,7 +14,6 @@ authorize_api_key(_, ApiKey) ->
     {ok, #{<<"uuid">> := Uuid}} = jwt:decode(ApiKey,
 					     <<"key">>),
     Account = accounts_db:get_account(Uuid),
-    logger:warning("made it into auth\n~p", [Account]),
     {true, #{account => Account}}.
 
 -spec handle_request(OperationID ::
@@ -29,7 +28,6 @@ authorize_api_key(_, ApiKey) ->
 handle_request('GetAccount', Req, Context) ->
     logger:warning("Request object:\n~p", [Req]),
     logger:warning("Context object:\n~p", [Context]),
-    logger:warning("get account handler"),
     {200, #{}, #{}};
 handle_request(OperationID, Req, Context) ->
     error_logger:error_msg("Got not implemented request to process: "
