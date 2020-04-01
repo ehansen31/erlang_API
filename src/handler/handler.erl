@@ -13,7 +13,7 @@
 authorize_api_key(_, ApiKey) ->
     {ok, #{<<"uuid">> := Uuid}} = jwt:decode(ApiKey,
 					     <<"key">>),
-    Account = accounts_db:get_account(Uuid),
+    {ok, Account} = accounts_db:get_account(Uuid),
     {true, #{account => Account}}.
 
 -spec handle_request(OperationID ::
@@ -25,10 +25,10 @@ authorize_api_key(_, ApiKey) ->
 								  Body ::
 								      jsx:json_term()}.
 
-handle_request('GetAccount', Req, Context) ->
+handle_request('GetAccount', Req, #{account:=Account}=Context) ->
     logger:warning("Request object:\n~p", [Req]),
     logger:warning("Context object:\n~p", [Context]),
-    {200, #{}, #{}};
+    {200, #{}, Account};
 handle_request(OperationID, Req, Context) ->
     error_logger:error_msg("Got not implemented request to process: "
 			   "~p~n",
@@ -48,7 +48,7 @@ authorized_test() ->
     meck:new(accounts_db),
     meck:expect(accounts_db, get_account,
 		fun (Uuid) -> #{id => 1, uuid => Uuid} end),
-    {true, _} = authorize_api_key('GetAccount', Token),
+    {true, #{id =>1}} = authorize_api_key('GetAccount', Token),
     ?assert((meck:validate(accounts_db))),
     meck:unload(accounts_db).
 
