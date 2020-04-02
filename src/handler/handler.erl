@@ -25,7 +25,8 @@ authorize_api_key(_, ApiKey) ->
 								  Body ::
 								      jsx:json_term()}.
 
-handle_request('GetAccount', Req, #{account:=Account}=Context) ->
+handle_request('GetAccount', Req,
+	       #{account := Account} = Context) ->
     logger:warning("Request object:\n~p", [Req]),
     logger:warning("Context object:\n~p", [Context]),
     {200, #{}, Account};
@@ -47,8 +48,11 @@ authorized_test() ->
     logger:warning("token is: ~p", [Token]),
     meck:new(accounts_db),
     meck:expect(accounts_db, get_account,
-		fun (Uuid) -> #{id => 1, uuid => Uuid} end),
-    {true, #{id =>1}} = authorize_api_key('GetAccount', Token),
+		fun (Uuid) -> {ok, #{id => 1, uuid => Uuid}} end),
+    {true, #{account := Result}} =
+	authorize_api_key('GetAccount', Token),
+    logger:warning("~p", [Result]),
+    ?assert((maps:is_key(id, Result))),
     ?assert((meck:validate(accounts_db))),
     meck:unload(accounts_db).
 
