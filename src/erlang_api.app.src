@@ -10,7 +10,8 @@
     jwt,
     uuid,
     pgapp,
-    openapi
+    openapi,
+    amqp_client
    ]},
 {included_applications, [openapi]},
   {env,[
