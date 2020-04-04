@@ -59,6 +59,11 @@ get_operations() ->
             path => "/account/",
             method => <<"GET">>,
             handler => 'openapi_account_handler'
+        },
+        'PutMessage' => #{
+            path => "/message/",
+            method => <<"PUT">>,
+            handler => 'openapi_default_handler'
         }
     }.
 

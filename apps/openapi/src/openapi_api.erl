@@ -19,6 +19,12 @@ request_params('GetAccount') ->
     [
     ];
 
+
+request_params('PutMessage') ->
+    [
+        'InlineObject'
+    ];
+
 request_params(_) ->
     error(unknown_operation).
 
@@ -48,6 +54,16 @@ request_params(_) ->
 }.
 
 
+
+
+request_param_info('PutMessage', 'InlineObject') ->
+    #{
+        source =>   body,
+        rules => [
+            schema,
+            not_required
+        ]
+    };
 
 request_param_info(OperationID, Name) ->
     error({unknown_param, OperationID, Name}).
@@ -101,6 +117,14 @@ validate_response('GetAccount', 200, Body, ValidatorState) ->
 validate_response('GetAccount', 400, Body, ValidatorState) ->
     validate_response_body('', '', Body, ValidatorState);
 validate_response('GetAccount', 404, Body, ValidatorState) ->
+    validate_response_body('', '', Body, ValidatorState);
+
+
+validate_response('PutMessage', 200, Body, ValidatorState) ->
+    validate_response_body('', '', Body, ValidatorState);
+validate_response('PutMessage', 400, Body, ValidatorState) ->
+    validate_response_body('', '', Body, ValidatorState);
+validate_response('PutMessage', 404, Body, ValidatorState) ->
     validate_response_body('', '', Body, ValidatorState);
 
 

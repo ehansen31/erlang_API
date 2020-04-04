@@ -46,9 +46,64 @@
         "summary" : "Get an existing account",
         "tags" : [ "account" ]
       }
+    },
+    "/message/" : {
+      "put" : {
+        "description" : "Put a message into the mq for consumption to be sent to the authorized users webhook",
+        "operationId" : "putMessage",
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/inline_object",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "properties" : {
+                  "message" : {
+                    "description" : "message to be sent to the webhook",
+                    "type" : "string"
+                  }
+                },
+                "required" : [ "message" ],
+                "type" : "object"
+              }
+            }
+          },
+          "required" : false
+        },
+        "responses" : {
+          "200" : {
+            "content" : { },
+            "description" : "successful operation"
+          },
+          "400" : {
+            "content" : { },
+            "description" : "Invalid user supplied"
+          },
+          "404" : {
+            "content" : { },
+            "description" : "User not found"
+          }
+        },
+        "security" : [ {
+          "api_key" : [ ]
+        } ],
+        "summary" : "Put Message",
+        "x-codegen-request-body-name" : "body"
+      }
     }
   },
   "components" : {
+    "requestBodies" : {
+      "inline_object" : {
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/inline_object"
+            }
+          }
+        },
+        "required" : false
+      }
+    },
     "schemas" : {
       "Account" : {
         "description" : "An account with access to the api",
@@ -62,6 +117,16 @@
           }
         },
         "title" : "an Account",
+        "type" : "object"
+      },
+      "inline_object" : {
+        "properties" : {
+          "message" : {
+            "description" : "message to be sent to the webhook",
+            "type" : "string"
+          }
+        },
+        "required" : [ "message" ],
         "type" : "object"
       }
     },

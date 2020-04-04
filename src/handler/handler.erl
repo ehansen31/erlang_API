@@ -27,9 +27,11 @@ authorize_api_key(_, ApiKey) ->
 
 handle_request('GetAccount', Req,
 	       #{account := Account} = Context) ->
-    logger:warning("Request object:\n~p", [Req]),
-    logger:warning("Context object:\n~p", [Context]),
     {200, #{}, Account};
+handle_request('PutMessage', Req, Context) ->
+    logger:warning("Context object:\n~p", [Context]),
+    % make a call to service to publish to topic
+    {200, #{}, #{message => "success"}};
 handle_request(OperationID, Req, Context) ->
     error_logger:error_msg("Got not implemented request to process: "
 			   "~p~n",

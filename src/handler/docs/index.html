@@ -201,6 +201,10 @@ font-style: italic;
   <ul>
   <li><a href="#getAccount"><code><span class="http-method">get</span> /account/</code></a></li>
   </ul>
+  <h4><a href="#Default">Default</a></h4>
+  <ul>
+  <li><a href="#putMessage"><code><span class="http-method">put</span> /message/</code></a></li>
+  </ul>
 
   <h1><a name="Account">Account</a></h1>
   <div class="method"><a name="getAccount"/>
@@ -249,6 +253,49 @@ font-style: italic;
         <a href="#"></a>
   </div> <!-- method -->
   <hr/>
+  <h1><a name="Default">Default</a></h1>
+  <div class="method"><a name="putMessage"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="put"><code class="huge"><span class="http-method">put</span> /message/</code></pre></div>
+    <div class="method-summary">Put Message (<span class="nickname">putMessage</span>)</div>
+    <div class="method-notes">Put a message into the mq for consumption to be sent to the authorized users webhook</div>
+
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#inline_object">inline_object</a> (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+
+    </div>  <!-- field-items -->
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    successful operation
+        <a href="#"></a>
+    <h4 class="field-label">400</h4>
+    Invalid user supplied
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    User not found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
 
   <h2><a name="__Models">Models</a></h2>
   [ Jump to <a href="#__Methods">Methods</a> ]
@@ -256,6 +303,7 @@ font-style: italic;
   <h3>Table of Contents</h3>
   <ol>
     <li><a href="#Account"><code>Account</code> - an Account</a></li>
+    <li><a href="#inline_object"><code>inline_object</code> - </a></li>
   </ol>
 
   <div class="model">
@@ -263,6 +311,13 @@ font-style: italic;
     <div class='model-description'>An account with access to the api</div>
     <div class="field-items">
       <div class="param">id (optional)</div><div class="param-desc"><span class="param-type"><a href="#long">Long</a></span>  format: int64</div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="inline_object"><code>inline_object</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">message </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> message to be sent to the webhook </div>
     </div>  <!-- field-items -->
   </div>
   </body>
