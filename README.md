@@ -17,7 +17,7 @@ Starter for a scalable web service written in Erlang. Goal of the project is to 
 
 ToDo:
 -----
-* RabbitMQ integration
+* RabbitMQ integration (https://www.rabbitmq.com/erlang-client-user-guide.html)
 * containerized deployment
 * background processor
 

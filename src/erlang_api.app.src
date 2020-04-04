@@ -11,7 +11,8 @@
     uuid,
     pgapp,
     openapi,
-    amqp_client
+    amqp_client,
+    jsx
    ]},
 {included_applications, [openapi]},
   {env,[
