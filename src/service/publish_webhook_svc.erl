@@ -13,31 +13,26 @@ publish(URL, Message) ->
     {ok, Channel} =
 	amqp_connection:open_channel(Connection),
     %% Create a queue for our webhook topic
-
     DeclareExchange = #'exchange.declare'{exchange =
-				      <<"webhook_exchange">>, type = <<"topic">>},
+					      <<"webhook_exchange">>,
+					  type = <<"topic">>},
     #'exchange.declare_ok'{} = amqp_channel:call(Channel,
 						 DeclareExchange),
-
-    DeclareQueue = #'queue.declare'{queue = <<"webhook_queue">>},
-    #'queue.declare_ok'{queue = Q} = amqp_channel:call(Channel,
-					      DeclareQueue),
-
-    Binding = #'queue.bind'{queue       = Q,
-                            exchange    = <<"webhook_exchange">>,
-                            routing_key = <<"endpoint">>},
-
-    #'queue.bind_ok'{} = amqp_channel:call(Channel, Binding),
-
-
-                    
+    DeclareQueue = #'queue.declare'{queue =
+					<<"webhook_queue">>},
+    #'queue.declare_ok'{queue = Q} =
+	amqp_channel:call(Channel, DeclareQueue),
+    Binding = #'queue.bind'{queue = Q,
+			    exchange = <<"webhook_exchange">>,
+			    routing_key = <<"endpoint">>},
+    #'queue.bind_ok'{} = amqp_channel:call(Channel,
+					   Binding),
     %% Publish a message
-    PayloadMap = #{<<"message">>=><<Message>>, <<"url">>=><<URL>>},
-    % encode json into binary here
+    PayloadMap = #{<<"message">> => list_to_binary(Message),
+		   <<"url">> => list_to_binary(URL)},
     Payload = jsx:encode(PayloadMap),
-
-
-    Publish = #'basic.publish'{exchange = <<"webhook_exchange">>,
+    Publish = #'basic.publish'{exchange =
+				   <<"webhook_exchange">>,
 			       routing_key = <<"endpoint">>},
     amqp_channel:cast(Channel, Publish,
 		      #amqp_msg{payload = Payload}),
