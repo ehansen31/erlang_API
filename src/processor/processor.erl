@@ -2,4 +2,6 @@
 
 -export([start/0]).
 
-start() -> ok.
+start() ->
+    spawn(process_webhook_prcsr, process, []),
+    ok.

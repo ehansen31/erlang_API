@@ -13,6 +13,7 @@ start(_StartType, _StartArgs) ->
     openapi_server:start(http_server,
 			 #{ip => {127, 0, 0, 1}, port => 8080, net_opts => [],
 			   logic_handler => handler}),
+    ok = mq:init(),
     erlang_api_sup:start_link().
 
 stop(_State) -> ok.
